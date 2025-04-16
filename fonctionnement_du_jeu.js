@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const nombreDeM = 242;
+  const nombreDePokémon = 1270;
   const images = [];
   const titreElement = document.getElementById("titre");
   const imageFolder = "normal/";
@@ -134,10 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!cesUnChromatique){
           titreElement.className = "nouveau";
         }
-        //newImage.src = imageFolder + "!oeuf.png"
-      }/*else {
-        newImage.src = "vide.png"
-      }*/
+      }
     }else{
       mainImage.src = "vide.png";
       newImage.src = "vide.png"
@@ -225,9 +224,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (valeur==1){
       lettre = "c";
       cesUnChromatique = true;
+    }else{
+      valeur = Math.floor(Math.random() * 10)
+      if (valeur == 5){
+        lettre = "M";//ligne a retirer pour ne pas avoir de malomon
+      }
     }
-    for (let i = 0; i < 1270; i++) {
-      images.push(lettre+" ("+i+").png");
+    if (lettre == "M"){
+      for (let i = 0; i < nombreDeM; i++) {
+        images.push(lettre+" ("+i+").png");
+      }
+    }else{
+      for (let i = 0; i < nombreDePokémon; i++) {
+        images.push(lettre+" ("+i+").png");
+      }
     }
     AfficherUneNouvelleImage();
     RécupéréMonEquipe();
