@@ -269,4 +269,74 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   valeur = Math.floor(Math.random() * phrase.length);
   document.getElementById("phraseDeProfesseurTonneau").innerText = phrase[valeur];
+
+
+  function ajouterEffetRebond(element) {
+    if (!element) return;
+    element.classList.remove("bounce"); // pour pouvoir relancer l'anim
+    void element.offsetWidth;           // force un "reflow" du navigateur
+    element.classList.add("bounce");
+  }
+  document.querySelectorAll("img").forEach(img => {
+    img.addEventListener("click", () => {
+      ajouterEffetRebond(img);
+    });
+  });
+  let currentData = []; // les données déjà présentes
+
+  document.getElementById("importer").addEventListener("click", () => {
+    //comment ajouter les donné que j'ai importer pour les ajouter au donné déja présente (je veut que l'utilisateur dise s'il veut écraser les donné qu'il à ou non, si ces non on les ajoutera au donné existante)
+    document.getElementById("fileInput").click(); // Ouvre le sélecteur de fichier
+
+    //alert("Données importées");
+  });
+  /*
+  document.getElementById("exporter").addEventListener("click", () => {
+    //comment enregistrer le fichier RécupéréLesCaptures() dans le dossier que l'utilisateur choisie ?
+    //alert("Données exportées");
+  });*/
+
+  //
+
+  //<input type="file" id="fileInput" style="display: none;" />
+  //<img id="importer" src="importer.png" />
+
+
+
+  document.getElementById("fileInput").addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const importedData = JSON.parse(e.target.result);
+
+      if (confirm("Voulez-vous écraser vos données existantes ?")) {
+        currentData = importedData;
+      } else {
+        currentData = currentData.concat(importedData);
+      }
+
+      alert("Données importées !");
+      console.log(currentData);
+    };
+
+    reader.readAsText(file);
+  });
+  //
+
+  document.getElementById("exporter").addEventListener("click", () => {
+    const data = RécupéréLesCaptures();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "mes_captures.json"; // Nom par défaut
+    a.click();
+
+    URL.revokeObjectURL(url);
+    alert("Données exportées !");
+  });
+
 });
