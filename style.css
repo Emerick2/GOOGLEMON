@@ -242,14 +242,6 @@ body::before {
     text-align: center;
 }
 
-.bulleG {
-    margin-right: 130px;
-}
-
-.bulleD {
-    margin-left: 130px;
-}
-
 .bulle .texte {
     font-size: 20px;
     margin-bottom: 15px;
@@ -291,3 +283,34 @@ body::before {
 }
 
 /*---------------------*/
+
+@media (min-width:400px){
+    .bulle{
+        top:-20px;
+        left: 10px;
+        height: 200px;
+        width: 370px;
+    }
+    
+    .pique-droite::before {
+        margin: 0px;
+        left: auto;
+        right: 25px;
+        bottom: -20px;
+        top:auto;
+        border-width: 20px 15px 0px 15px;
+        transform: rotate(0deg);
+        border-color: var(--border-color) transparent transparent transparent;
+    }
+    .pique-droite::after {
+        margin: 0px;
+        left: auto;
+        right: 25px;
+        bottom: -15px;
+        top:auto;
+        border-width: 20px 15px 0px 15px;
+        transform: rotate(0deg);
+        border-color: var(--bg-color) transparent transparent transparent;
+        z-index: 2;
+    }
+}
